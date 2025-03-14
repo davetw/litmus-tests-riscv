@@ -151,6 +151,9 @@ hw-%-src:
 	mkdir -p $@
 	$(LITMUS) -mach ./riscv.cfg -avail $(CORES) $(foreach e,$^,-excl $(e)) -o $@ "$(TESTFILE)"
 
+# Default value for total results (40 million)
+TOTAL_RESULTS ?= 40000000
+
 ### This will produce 1.2 billion results for a 2-thread test
 # -s values for litmus run.exe
 SIZES=50k 500k 10k 100k 5k 1M
@@ -159,8 +162,8 @@ STRIDES=1 2 3 4 5 6 7 8 31 133
 count := $(shell echo '$(words $(STRIDES)) * $(words $(SIZES))' | bc)
 # Calculate a value for litmus run.exe -r argument, given a value to
 # the -s argument and the number of cores in the machine, in order to
-# produce 20 million results for a 2-thread test
-r-for-s = $(shell printf 'scale=2; x=40000000 / (%d * $(CORES)) + 0.5; scale=0; if (x > 1) x/1 else 1\n' "`echo '$1' | sed 's/[mM]$$/000000/; s/[kK]$$/000/'`" | bc | sed 's/000000$$/M/; s/000$$/k/')
+# produce TOTAL_RESULTSTTS results for a 2-thread test
+r-for-s = $(shell printf 'scale=2; x=$(TOTAL_RESULTS)RESULTS) / (%d * $(CORES)) + 0.5; scale=0; if (x > 1) x/1 else 1\n' "`echo '$1' | sed 's/[mM]$$/000000/; s/[kK]$$/000/'`" | bc | sed 's/000000$$/M/; s/000$$/k/')
 hw-%-src/run.sh: | hw-%-src
 	@{ echo '#!/bin/sh';\
 	  echo 'echo "Running a quick test"';\
