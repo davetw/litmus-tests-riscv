@@ -399,7 +399,7 @@ static void *zyva(void *_va) {
       int cond;
 
       for (int _p = N-1 ; _p >= 0 ; _p--) {
-        if (_y_i != ctx.cpy_y[_p][_i]) fatal("MP+fence.rw.rw+amoswap-rfi-addr, global y unstabilized")
+        if (_y_i != ctx.cpy_y[_p][_i]) fatal("MP+fence.rw.rw+amoswap-rfi-addr, global y unstabilized");
       }
       cond = final_ok(final_cond(_out_1_x5_i, _out_1_x10_i, _y_i));
 
