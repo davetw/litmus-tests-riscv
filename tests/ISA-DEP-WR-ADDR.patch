@@ -1,0 +1,13 @@
+diff --git a/tests/non-mixed-size/HAND/ISA-DEP-WR-ADDR.litmus b/tests/non-mixed-size/HAND/ISA-DEP-WR-ADDR.litmus
+index 3907bbb..f43494c 100644
+--- a/tests/non-mixed-size/HAND/ISA-DEP-WR-ADDR.litmus
++++ b/tests/non-mixed-size/HAND/ISA-DEP-WR-ADDR.litmus
+@@ -10,6 +10,6 @@ RISCV ISA-DEP-WR-ADDR
+  sc.w x8,x6,0(x5) | fence rw,rw   ;
+  xor x9,x8,x8     | lw x8,0(x9)  ;
+  add x11,x10,x9   |               ;
+- lw x5,0(x11)     |               ;
++ lw x1,0(x11)     |               ;
+ exists
+-(x=1 /\ 0:x5=0 /\ 1:x8=0)
++(x=1 /\ 0:x1=0 /\ 1:x8=0)
